@@ -105,32 +105,67 @@ Below are screenshots demonstrating successful cloud execution:
 
 **Notebook 2 - Feature Comparison Results**
 
-![Model Comparison](img/img4.png)
+**run all**
+![Notebook 1 Execution](images/image6.png)
+![Notebook 1 Execution](images/image7.png)
 
-*Side-by-side comparison of three models with different feature sets.*
+### Local vs SageMaker Execution Comparison
+
+| Aspect | Local Execution | AWS SageMaker Execution |
+|--------|----------------|-------------------------|
+| **Setup Time** | ~5 minutes (env setup) | ~2 minutes (instance ready) |
+| **Numerical Results** | Identical MSE values | Identical MSE values |
+| **Execution Speed** | Comparable | Comparable (ml.t3.medium) |
+| **Plot Rendering** | Inline in Jupyter | Inline in SageMaker Studio |
+| **Reproducibility** | Depends on local Python version | Guaranteed (containerized env) |
+| **Scalability** | Limited by local hardware | Can scale to GPU instances |
+| **Collaboration** | Manual file sharing | Built-in sharing features |
+| **Cost** | $0 (local resources) | ~$0.05/hour (ml.t3.medium) |
+
+# Datasets
+
+
+### Part 1
+
+```
+M = [0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4]
+L = [0.15, 0.35, 1.00, 2.30, 4.10, 7.00, 11.2, 17.5, 25.0, 35.0]
+```
+
+Where
+ - **M**: Stellar mass
+ - **L**: Luminosity  
+
+### Part 2
+
+```
+M = [0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.4]
+T = [3800, 4400, 5800, 6400, 6900, 7400, 7900, 8300, 8800, 9200]
+L = [0.15, 0.35, 1.00, 2.30, 4.10, 7.00, 11.2, 17.5, 25.0, 35.0]
+```
+
+Where
+ - **M**: Stellar mass
+ - **L**: Luminosity 
+
+ ## Built With
+
+* **[NumPy](https://numpy.org/)** - Numerical computing and vectorized operations
+* **[Matplotlib](https://matplotlib.org/)** - Data visualization and plotting
+* **[Pandas](https://pandas.pydata.org/)** - Data structure and analysis (optional)
+* **[Jupyter](https://jupyter.org/)** - Interactive notebook environment
+* **[AWS SageMaker](https://aws.amazon.com/sagemaker/)** - Cloud-based ML platform for deployment
 
 ---
 
-**Figure 6: Polynomial Regression Training Output**
+## Authors
 
-![Training Output](img/img5.png)
-
-*Training logs showing MSE reduction across 5000 iterations with normalized features.*
-
----
-
-**Figure 7: Sensitivity Analysis Plot**
-
-![Sensitivity Analysis](img/img6.png)
-
-*Cost vs Interaction Term (w_MT) showing the importance of the M·T feature.*
+* **Juan Felipe Rangel Rodriguez** - *TDSE lab 1*
+  - Escuela Colombiana de Ingeniería Julio Garavito
 
 ---
+## Acknowledgments
 
-**Figure 8: Inference Demo Results**
-
-![Inference Demo](img/img7.png)
-
-*Prediction for new star (M=1.3, T=6600) with reasonableness validation.*
-
----
+* Example data based on the stellar mass-luminosity relationship from astrophysics
+* Machine learning concepts and linear regression
+* Educational implementation of gradient descent from scratch
