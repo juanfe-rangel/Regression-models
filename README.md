@@ -83,3 +83,54 @@ The notebooks were successfully deployed and executed on **AWS SageMaker Studio*
 3. Upload Notebooks (`01_part1_linreg_1feature.ipynb` and `02_part2_polyreg.ipynb`)
 4. Execute All Cells in sequential order
 5. Verify Outputs including plots and numerical results
+
+Below are screenshots demonstrating successful cloud execution:
+
+**Both Notebooks Open in SageMaker Studio**
+
+![SageMaker Notebooks Overview](images/image1.png)
+
+
+**Notebook 1 - Successful Execution**
+
+![Notebook 1 Execution](images/image2.png)
+
+
+---
+
+**run all**
+![Notebook 1 Execution](images/image3.png)
+![Notebook 1 Execution](images/image4.png)
+![Notebook 1 Execution](images/image5.png)
+
+**Notebook 2 - Feature Comparison Results**
+
+![Model Comparison](img/img4.png)
+
+*Side-by-side comparison of three models with different feature sets.*
+
+---
+
+**Figure 6: Polynomial Regression Training Output**
+
+![Training Output](img/img5.png)
+
+*Training logs showing MSE reduction across 5000 iterations with normalized features.*
+
+---
+
+**Figure 7: Sensitivity Analysis Plot**
+
+![Sensitivity Analysis](img/img6.png)
+
+*Cost vs Interaction Term (w_MT) showing the importance of the M·T feature.*
+
+---
+
+**Figure 8: Inference Demo Results**
+
+![Inference Demo](img/img7.png)
+
+*Prediction for new star (M=1.3, T=6600) with reasonableness validation.*
+
+---
