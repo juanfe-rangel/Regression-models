@@ -1,0 +1,306 @@
+================================================================================
+  AUTOMATIC COPILOT EVALUATION — TA GRADING REPORT
+  Repository: Regression-models
+  Topic: Stellar Luminosity – Linear and Polynomial Regression from First Principles
+================================================================================
+
+================================================================================
+1. SUMMARY
+================================================================================
+This repository demonstrates a solid, technically complete implementation of
+linear and polynomial regression from scratch, using only the permitted
+libraries (NumPy and Matplotlib for the actual computations). Both notebooks are
+well-structured, cover all mandatory deliverables, and are accompanied by a
+thorough README with seven SageMaker screenshots and a local-vs-cloud comparison
+table. The core algorithms (hypothesis, MSE cost, analytical gradients, gradient
+descent in both non-vectorized and vectorized forms) are correctly derived and
+implemented. Notebook 2 adds feature engineering, feature scaling, model
+comparison across three feature sets, interaction-term sensitivity analysis, and
+an inference demo. The only noteworthy compliance issue is an unused
+"import pandas as pd" statement in Notebook 2 (and a corresponding mention of
+Pandas in the README's "Built With" section), which constitutes a minor
+violation of the "no ML libraries" constraint even though Pandas is not actually
+called anywhere in the code.
+
+================================================================================
+2. GRADING BREAKDOWN
+================================================================================
+
+--- 2.1  Repository Structure & Compliance  [max 0.5] ---
+
+  README present:                            YES
+  Two notebooks (Part I and Part II):        YES
+  Datasets defined inside notebooks:         YES
+  Only allowed libraries used:               MOSTLY — see note
+
+  Note: Notebook 2 contains "import pandas as pd" in the setup cell. Pandas is
+  never invoked (no "pd." call appears anywhere), but the import itself places
+  a non-permitted library in the execution environment. The README also lists
+  Pandas under "Built With." This is treated as a minor infraction.
+
+  SCORE: 0.4 / 0.5   (−0.1 for unnecessary/forbidden pandas import and README
+                       mention)
+
+--- 2.2  Notebook 1 – Linear Regression  [max 2.0] ---
+
+  Dataset visualization and interpretation:      YES — scatter plot M vs L, axis
+                                                  labels, clear title.
+  Hypothesis and MSE implementation:             YES — f(M) = wM + b, correct
+                                                  1/2n MSE formula.
+  Cost surface (MANDATORY):                      YES — 3-D surface plot over a
+                                                  grid of (w, b) values, rendered
+                                                  with mpl_toolkits and cm.
+  Correct gradient derivation:                   YES — analytical partial
+                                                  derivatives shown in LaTeX and
+                                                  implemented in compute_gradients.
+  Gradient descent – non-vectorized:             YES — explicit Python loop over
+                                                  data points in the experiments
+                                                  section (cell 23); gradients
+                                                  computed with scalar operations.
+  Gradient descent – vectorized:                 YES — separate gradient_descent
+                                                  function using NumPy array ops.
+  Convergence plot and discussion (MANDATORY):   YES — loss vs. iteration plot;
+                                                  accompanying markdown explains
+                                                  rapid early drop and levelling.
+  Multiple learning-rate experiments (MANDATORY):YES — three rates tested:
+                                                  2e-3, 3e-3, 1e-2; final w, b,
+                                                  and loss reported for each.
+  Final fit plot and error discussion:           YES — scatter + fitted line plot;
+                                                  conceptual discussion of fit
+                                                  quality.
+  Meaning of w (conceptual):                     YES — markdown cell explains w as
+                                                  the average change in luminosity
+                                                  per solar mass.
+  Limits of linearity (conceptual):              YES — markdown cell explicitly
+                                                  discusses why a linear model is
+                                                  inadequate for the true
+                                                  mass-luminosity relationship.
+
+  Minor deductions:
+    - The learning-rate experiment reaches only the minimum required count of
+      three rates; a broader sweep (e.g., diverging or very slow rates) would
+      have enriched the analysis.
+    - The convergence plot intentionally skips the first 15 checkpoints to
+      improve readability; a brief comment explaining this choice is absent.
+
+  SCORE: 1.9 / 2.0
+
+--- 2.3  Notebook 2 – Polynomial Regression  [max 2.0] ---
+
+  Visualization with temperature encoding:       YES — scatter plot of L vs M
+                                                  with T encoded as color (viridis
+                                                  colormap), colorbar included.
+  Feature engineering [M, T, M², M·T]:           YES — create_polynomial_features
+                                                  builds the (10×4) design matrix
+                                                  correctly.
+  Vectorized loss and gradients:                 YES — compute_mse and
+                                                  compute_gradients use NumPy
+                                                  matrix operations (X.T @ error).
+  Training and convergence plot:                 YES — loss vs. training
+                                                  checkpoint plotted on a log
+                                                  scale for clarity.
+  Feature selection experiment M1/M2/M3
+  (MANDATORY):                                   YES — three models trained and
+                                                  compared:
+                                                    M1: [M, T]
+                                                    M2: [M, T, M²]
+                                                    M3: [M, T, M², M·T]
+                                                  Predicted-vs-actual scatter
+                                                  plots shown side-by-side.
+  Interaction cost analysis w_MT sweep
+  (MANDATORY):                                   YES — w_MT swept ±0.5 around
+                                                  the trained value, MSE plotted
+                                                  to show sensitivity.
+  Inference example and interpretation
+  (MANDATORY):                                   YES — new star (M=1.3, T=6600)
+                                                  normalized with training
+                                                  statistics and predicted with
+                                                  Model 3; result interpreted.
+  Feature scaling:                               YES — z-score normalization
+                                                  applied correctly per feature
+                                                  (mu and sigma computed on
+                                                  training data and reused for
+                                                  inference).
+
+  Minor deductions:
+    - "import pandas as pd" is present but unused; the forbidden library enters
+      the kernel even though no Pandas functionality is exercised.
+    - No explicit non-vectorized gradient descent in this notebook (the
+      assignment focuses on vectorized for Part II, so this is not penalized
+      here, only noted).
+    - Convergence plot for all three models in a single figure would improve
+      comparability; currently only Model 3 convergence is shown in Section 8,
+      with individual runs reported numerically for M1 and M2.
+
+  SCORE: 1.85 / 2.0
+
+--- 2.4  Cloud Execution Evidence (SageMaker)  [max 0.5] ---
+
+  Description of SageMaker execution:            YES — step-by-step process
+                                                  described (access Studio,
+                                                  create instance, upload
+                                                  notebooks, execute, verify).
+  Screenshots of notebooks in SageMaker:         YES — images/image1.png shows
+                                                  both notebooks open in
+                                                  SageMaker Studio.
+  Screenshots of successful execution:           YES — images/image2–7.png show
+                                                  cells running and outputs.
+  At least one plot visible:                     YES — multiple plots visible
+                                                  in the screenshots.
+  Local vs cloud comparison:                     YES — detailed comparison table
+                                                  covering setup time, results,
+                                                  speed, rendering, reproducibility,
+                                                  scalability, collaboration, cost.
+
+  SCORE: 0.5 / 0.5
+
+================================================================================
+3. FINAL GRADE
+================================================================================
+
+  Repository structure & compliance:  0.40 / 0.5
+  Notebook 1 – Linear regression:     1.90 / 2.0
+  Notebook 2 – Polynomial regression: 1.85 / 2.0
+  Cloud execution evidence:           0.50 / 0.5
+  ------------------------------------------------
+  TOTAL:                              4.65 / 5.0
+
+  Final grade: 4.65 / 5.0
+  Result: PASS  (threshold: 3.0 / 5.0)
+
+================================================================================
+4. STRENGTHS
+================================================================================
+
+  • Complete coverage of all mandatory deliverables across both notebooks and
+    the README (cost surface, convergence plots, learning-rate sweep, model
+    comparison, interaction analysis, inference demo, SageMaker evidence).
+
+  • Clean, correct mathematical formulation — LaTeX-rendered equations for
+    the hypothesis, MSE, gradients, and update rules match the corresponding
+    code exactly.
+
+  • Demonstrates both non-vectorized and vectorized gradient descent, clearly
+    labelling the difference and verifying they produce the same results.
+
+  • Feature engineering in Notebook 2 is well-structured: the design matrix is
+    built via a dedicated function, making it easy to trace each feature column.
+
+  • Z-score normalization is correctly computed from training statistics and
+    consistently reused at inference time, demonstrating awareness of the
+    train/test data-leakage concern.
+
+  • Interaction-term sensitivity analysis (w_MT sweep) clearly illustrates why
+    the M·T feature matters, reinforcing the conceptual understanding.
+
+  • Comprehensive SageMaker documentation: seven screenshots, structured
+    deployment steps, and a detailed comparison table between local and cloud
+    execution.
+
+  • Datasets are fully self-contained within the notebooks — no external file
+    dependencies.
+
+================================================================================
+5. ISSUES & MISSING ELEMENTS
+================================================================================
+
+  • [COMPLIANCE] "import pandas as pd" appears in the Notebook 2 setup cell and
+    Pandas is listed under "Built With" in the README. Although Pandas is never
+    called, its import violates the constraint that only Python, NumPy, and
+    Matplotlib are permitted. The import should be removed.
+
+  • [NOTEBOOK 1] Only the exact minimum of three learning rates is tested.
+    Including at least one diverging rate and one very slow rate would have
+    produced a more instructive comparison and better demonstrated understanding
+    of learning-rate sensitivity.
+
+  • [NOTEBOOK 1] The convergence plot skips the first 15 recorded points
+    (costs[15:]) to avoid the initial spike. While visually reasonable, this
+    decision is not explained with a comment or markdown note.
+
+  • [NOTEBOOK 2] Convergence curves for all three models (M1, M2, M3) are not
+    shown together in a single comparative plot. Section 8 shows only Model 3;
+    the final MSE values for M1 and M2 are printed numerically. A combined
+    plot would strengthen the model-comparison narrative.
+
+  • [NOTEBOOK 2] There is no explicit non-vectorized gradient descent
+    implementation. This is expected for Part II, but a brief note
+    acknowledging why vectorization is preferred at this stage would be a
+    nice conceptual touch.
+
+================================================================================
+6. TA FEEDBACK TO STUDENT
+================================================================================
+
+Overall, this is a strong and well-organized submission. You have demonstrated
+a genuine understanding of both the mathematics and the implementation of
+gradient descent, and every mandatory deliverable is present and correctly
+executed.
+
+The most important correction before resubmission (if applicable) is to remove
+"import pandas as pd" from Notebook 2 and the corresponding Pandas entry from
+the README. The constraint is explicit, and even an unused import is a violation.
+
+For Notebook 1, consider enriching your learning-rate experiment by including
+a rate that causes divergence and one that converges extremely slowly. This
+would make the analysis far more instructive and would showcase a deeper
+understanding of the role of alpha in gradient descent.
+
+For Notebook 2, a single figure overlaying the convergence curves of M1, M2,
+and M3 would make the performance comparison much more compelling than separate
+numerical printouts.
+
+Your SageMaker documentation is exemplary — the screenshots, deployment steps,
+and comparison table together provide clear evidence of successful cloud
+execution.
+
+================================================================================
+7. AI-GENERATION ASSESSMENT (NON-GRADING / INFORMATIVE ONLY)
+================================================================================
+
+A. Qualitative Assessment
+--------------------------
+Indicators suggesting AI assistance:
+  - Uniform and consistent writing style across all markdown cells, with no
+    idiosyncratic phrasing or personal voice.
+  - Mathematical notation in LaTeX is rendered with a high degree of
+    correctness and consistent formatting throughout both notebooks.
+  - Section headers follow a methodical, textbook-like progression with no
+    exploratory detours or debugging traces.
+  - Explanations of gradient descent and convergence use generic, encyclopedic
+    language (e.g., "the updates become smaller and the curve levels off")
+    rather than personalized observations from experimentation.
+  - The README structure closely mirrors documentation templates commonly
+    produced by AI writing tools, including the comparison table format.
+
+Indicators of human involvement:
+  - The misspelling "visualice" (instead of "visualize") in Notebook 1 cell 24
+    is a human-style typo.
+  - The decision to skip the first 15 convergence checkpoints suggests
+    iterative experimentation and manual plot inspection.
+  - The unused "import pandas as pd" is consistent with a student copying a
+    familiar template and not cleaning it up — an uncommon AI output artifact.
+  - The choice of a log scale for the convergence plot in Notebook 2 reflects
+    a practical judgment call typical of hands-on experimentation.
+
+B. Quantitative Estimate
+------------------------
+  Code:                    ~60%  AI-assisted
+  Explanations / markdown: ~70%  AI-assisted
+  README:                  ~75%  AI-assisted
+
+C. Commentary
+--------------
+The codebase shows a high degree of structural regularity and mathematical
+precision that is consistent with AI-assisted generation, particularly the
+uniform LaTeX formatting and the clean separation between sections. However,
+several small imperfections — a typo, an unused import, and a minor plotting
+decision without explanation — suggest active human involvement in editing and
+running the notebooks. The README follows a recognizable template pattern with
+polished prose that suggests substantial AI support in drafting.
+
+This assessment is observational and does not imply misconduct.
+
+================================================================================
+END OF REPORT
+================================================================================
